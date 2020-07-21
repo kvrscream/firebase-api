@@ -8,22 +8,9 @@ let intiFirebase = firebase.initializeApp({
 })
 
 
-const serviceAccount = require("../xamarin-login-79e8a-firebase-adminsdk-e51vz-7ddbb5f4a2.json");
+// const serviceAccount = require("../xamarin-login-79e8a-firebase-adminsdk-e51vz-7ddbb5f4a2.json");
 
 module.exports = {
-    
-    async initApp(req, res){
-        let response = await admin.initializeApp({
-            credential: admin.credential.cert(serviceAccount),
-            databaseURL: process.env.DATABASEURL
-          });
-        console.log(response)
-        res.json({
-            status: 200,
-            messagem: "iniciado"
-        })
-    },
-
     async registerUser(req, res){
         console.log("login => ", req.body)
 
@@ -38,21 +25,15 @@ module.exports = {
             });
         }
 
-        admin.initializeApp({
-            credential: admin.credential.cert(serviceAccount),
-            databaseURL: process.env.DATABASEURL
-          });
-
-        admin.auth().createUser({
-            email: email,
-            emailVerified: false,
-            password: senha,
-        }).then((response) => {
-            console.log(response)
-            res.json({
-                status: 200,
-            })
-        }).catch((erro) => {
+          intiFirebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.senha)
+          .then((response) => {
+              console.log("logou =>", response.user.refreshToken);
+              res.json({
+                  status:200,
+                  message: "usuário cadastrado com sucesso!"
+              })
+          })
+        .catch((erro) => {
             console.log(erro);
             res.json({
                 status: 200,
