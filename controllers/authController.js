@@ -8,7 +8,7 @@ let intiFirebase = firebase.initializeApp({
 })
 
 
-const serviceAccount = require("../../xamarin-login-79e8a-firebase-adminsdk-e51vz-7ddbb5f4a2.json");
+const serviceAccount = require("../xamarin-login-79e8a-firebase-adminsdk-e51vz-7ddbb5f4a2.json");
 
 module.exports = {
     
