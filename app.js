@@ -1,5 +1,5 @@
 let app = require("./config/server");
-const port = 4004;
+const port = 8080;
 app.listen(port, () => {
     console.log(
         `/************************************* */
